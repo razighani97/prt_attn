@@ -11,7 +11,8 @@ before any analysis code is written, and Google Trends alone does not count.
 | GDELT via BigQuery | 2026-10-19 | **Pass** | Daily (any) | 2015-02 onward | None; ~1 GB scanned per month of URL matching, ~15 GB with themes and locations, inside the 1 TB/month free tier | No full-text search: matching is on URLs, themes and entities, so it is a related but different measure from DOC keyword volume |
 | YouTube Data API v3 | | not yet tested | | | | |
 | Fact Check Tools API | | not yet tested | | | | |
-| ACLED | | not yet tested | | | | |
+| ACLED | 2026-10-19 | **Fail: no access** | n/a | n/a | Free Open-access tier has no API; event data needs a paid licence (ACLED reply, 2026-10-19) | Replaced by GDELT events below |
+| GDELT events via BigQuery | 2026-10-19 | **Pass, as a control and cross-check** | Daily, by state (ADM1) | 2019-01-01 onward collected (2015 available) | None; 28 GB for 2019-2026 | Machine-coded and noisy: arrests are mostly ordinary crime, riots under-captured, Delhi over-represented, coverage drifts by year |
 | SFLC.in shutdown tracker | | not yet tested | | | | |
 | Bluesky | | not yet tested | | | | |
 | Reddit | | not yet tested | | | | |
@@ -44,6 +45,37 @@ agree on timing:
   farmers' protest reproduces both Wikipedia peaks. Caveat for the India and
   abroad split: country by `.in` domain misses major Indian outlets on `.com`
   (NDTV, The Hindu, Indian Express); use GDELT's domain-to-country lookup.
+
+## GDELT events (replacing ACLED)
+
+ACLED's free tier has no API access, so protest activity and coercion come
+from the GDELT 2.0 events table (`make collect-events`). Stored as daily
+counts by state and category only: no actors, URLs or individual records.
+
+| Category | CAMEO | Typical day, India | Usable for |
+|---|---|---|---|
+| protest | root 14 | 70-160 events | Control for protest activity; placebo protest days |
+| repression | 175 | under 20 | Cross-check on hand-coded crackdowns |
+| restriction | 172x (curfew, ban, emergency) | 45-80 | Cross-check, noisy |
+| arrest | 173 | ~200 | **Not usable:** dominated by ordinary crime |
+| riot | 145 | ~10 | **Not usable:** the Delhi riots (2020-02-25) register 26 |
+
+Validation against known dates (protest events, multiple of the median 30-60
+days earlier): CAA nationwide protests 2019-12-19, 15x, and 2019-12-16 to
+12-20 are the top five days of 2019; Bharat Bandh 2020-12-08, 10x; tractor
+rally 2021-01-26, the top day of 2021; NEET protests 2026-07-22, the top day
+of 2026 (1,042 events); anti-CEC 2026-10-10, 766 events against roughly
+70-110 a day in mid-September.
+
+Limitations: 7.5% of events have no state; Delhi (IN07) holds 73k protest
+events, more than twice the next state, reflecting where news is datelined;
+mean daily counts range from 72 to 160 by year, so only within-episode
+comparisons are valid. These are counts of reported events, not of protests.
+
+**Seen before preregistration.** The audit showed GDELT repression events
+peaking at 345 on 2026-10-10 (under 20 on a typical day), the day before the
+attention peak. That is event-side data, not an outcome, but it is recorded
+in PREREGISTRATION.md as known before registration.
 
 ## Wikipedia pageviews
 

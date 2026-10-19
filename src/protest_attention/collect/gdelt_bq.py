@@ -41,7 +41,7 @@ PATTERNS = {
 def _bq(sql: str, dry_run: bool = False) -> str:
     project = os.environ["GCP_PROJECT"]
     cmd = ["bq", f"--project_id={project}", "query", "--use_legacy_sql=false",
-           "--format=json", "--max_rows=100000"]
+           "--format=json", "--max_rows=500000"]
     if dry_run:
         cmd.append("--dry_run")
     return subprocess.run(cmd + [sql], check=True, capture_output=True, text=True).stdout
