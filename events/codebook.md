@@ -3,8 +3,8 @@
 Written before any event is coded. Changes after coding starts are logged at
 the end with a date and a reason, and trigger a recode of affected rows.
 
-**Status: DRAFT.** The items marked **[decide]** need the coder's sign-off
-before pass 1 begins.
+**Status: APPROVED 2026-10-19.** Source list, `assembly_ban` and the FIR
+exclusion signed off by the coder before any coding.
 
 ## What counts as a crackdown
 
@@ -29,7 +29,7 @@ Acts that occurred from **2026-09-23** (the Indian Express report) to the
 end of the protests. While the protests continue, the window is extended
 weekly and new candidates are added to both coding sheets.
 
-## Fixed source list [decide]
+## Fixed source list
 
 Only these outlets are read, and every article the sweep returns from them is
 screened. Nothing from social media, memory or other outlets is added.
@@ -101,13 +101,13 @@ Each must reach **0.7**; below that, tighten this codebook and recode.
 | `transit_closure` | Metro stations, roads, borders or rail routes closed to stop people reaching a protest |
 | `press_restriction` | Journalists detained, blocked or attacked by police; outlets or accounts ordered taken down |
 | `force_used` | Lathi charge, tear gas, water cannon, rubber bullets or live fire against protesters |
-| `assembly_ban` **[decide]** | Prohibitory order (Section 163 BNSS, formerly 144) or denial of permission targeting a protest. Not in the plan's list; proposed because it is the commonest pre-emptive act |
+| `assembly_ban` | Prohibitory order (Section 163 BNSS, formerly 144) or denial of permission targeting a protest. Not in the plan's list; proposed because it is the commonest pre-emptive act |
 
 If one act fits two types (a leader detained during a mass detention), code
 two rows. Fewer than ten people detained and none named: not a crackdown
 under this codebook (note it).
 
-FIRs and charges filed against protesters are **out** **[decide]**: too
+FIRs and charges filed against protesters are **out**: too
 frequent, rarely dated precisely, and not visible as an act on the day.
 
 ## Anticipated: the identification variable
@@ -153,3 +153,4 @@ reported.
 | Date | Change | Reason |
 |---|---|---|
 | 2026-10-19 | First draft | |
+| 2026-10-19 | Approved: five-outlet source list, `assembly_ban` added, FIRs excluded | Coder sign-off before pass 1 |
