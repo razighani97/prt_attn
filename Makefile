@@ -4,9 +4,9 @@
 # first 15-minute audit to 7.5 hours).
 PY = PYTHONPATH=src caffeinate -i uv run python
 
-.PHONY: all env audit-wikipedia audit-gdelt audit-selection test
+.PHONY: all env audit-wikipedia audit-gdelt audit-selection collect-a clean-a analyse-a plot-a project-a test
 
-all: env audit-wikipedia audit-gdelt audit-selection
+all: env audit-wikipedia audit-selection project-a
 
 env:
 	uv sync --all-extras
@@ -19,6 +19,21 @@ audit-gdelt: audit-wikipedia
 
 audit-selection: audit-wikipedia
 	$(PY) -m protest_attention.audit.selection
+
+collect-a:
+	$(PY) -m protest_attention.collect.project_a
+
+clean-a:
+	$(PY) -m protest_attention.clean.project_a
+
+analyse-a: clean-a
+	$(PY) -m protest_attention.analyse.decay
+
+plot-a: analyse-a
+	$(PY) -m protest_attention.plot.decay
+
+project-a: collect-a
+	$(MAKE) plot-a
 
 test:
 	PYTHONPATH=src uv run pytest -q

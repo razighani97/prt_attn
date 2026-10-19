@@ -4,8 +4,17 @@ How public attention to Indian protest movements rises and decays, and whether
 state crackdowns increase it. Built only on public data; individuals are never
 studied, only institutions and aggregates.
 
-**Status:** Week 0, data audit. Gate passed: Wikipedia pageviews and GDELT
-agree on timing. See [docs/data_audit.md](docs/data_audit.md).
+**Status:** Project A done ([docs/project_a.md](docs/project_a.md)). Data
+audit: [docs/data_audit.md](docs/data_audit.md).
+
+**Project A finding.** Attention to Indian protest movements halves within 2
+to 5 days of its peak, on Wikipedia and in GDELT news coverage alike. What
+separates movements is what remains a month later: 27% of peak for the CAA
+protests, 10% for the farmers' protests, 2% for the NEET protests, with the
+same order in news coverage. The current anti-CEC wave halved in 2 days, in
+line with the others; it is too early to say what will remain.
+
+![Decay curves](output/figures/fig_a_decay.png)
 
 ## Projects
 
@@ -19,6 +28,7 @@ agree on timing. See [docs/data_audit.md](docs/data_audit.md).
 
 ```bash
 uv sync --all-extras
+cp .env.example .env   # set CONTACT_EMAIL and GCP_PROJECT (BigQuery, for GDELT)
 make all
 ```
 

@@ -136,10 +136,17 @@ def collect_article(
 ) -> dict:
     """Resolve, expand redirects, and collect pageviews for every title.
 
-    Writes one immutable raw JSON file and returns its contents. Reruns are
-    cheap because every HTTP response is cached.
+    Writes one immutable raw JSON file and returns its contents. Resumable: an
+    existing raw file for the same request is returned instead of a duplicate.
     """
     start = max(start, PAGEVIEWS_START)
+    out = RAW / "pageviews"
+    for existing in sorted(out.glob(f"{project}_{lang}_{agent}_*.json")):
+        prior = json.loads(existing.read_text())
+        if (prior["article"]["requested"], prior["start"], prior["end"]) == (
+            title, start.isoformat(), end.isoformat()
+        ):
+            return {**prior, "path": str(existing)}
     meta = resolve(lang, title)
     record = {
         "project": project,
@@ -156,7 +163,6 @@ def collect_article(
         for t in all_titles:
             record["series"][t] = pageviews(lang, t, start, end, agent)
 
-    out = RAW / "pageviews"
     out.mkdir(parents=True, exist_ok=True)
     stamp = record["collected_at"].replace(":", "").replace("-", "")
     # Page id keeps non-Latin titles (Hindi, Bengali) distinct after slugging.
