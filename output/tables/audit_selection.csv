@@ -1,0 +1,10 @@
+movement,title,peak_day,peak,spike_ratio,baseline_median,peak_over_baseline,days_after_peak,share_at_30d,share_at_90d,views_at_1pct,pass_peak,pass_spike,censored
+caa,Citizenship Amendment Act protests,2019-12-21,93109,1.75,,,376,0.261,0.028,931,True,True,False
+farmers,2020–2021 Indian farmers' protest,2021-02-04,73382,2.0,2814.0,26.1,389,0.097,0.032,734,True,True,False
+neet2026,2026 NEET scandal,2026-07-27,26796,1.83,852.0,31.5,80,0.016,,268,True,True,True
+anticec2026,2026 anti-CEC protests,2026-10-11,7593,3.0,,,4,,,76,True,True,True
+sir,Special Intensive Revision,2026-05-04,18960,3.66,2485.0,7.6,164,0.185,0.203,190,True,False,False
+caa_issue,"Citizenship (Amendment) Act, 2019",2019-12-16,575338,1.84,726.0,792.5,381,0.047,0.013,5753,True,True,False
+farmers_issue,2020 Indian agriculture acts,2020-12-08,41468,1.92,0.0,,447,0.199,0.083,415,True,True,False
+neet_protest,2026 Delhi Jantar Mantar protests,2026-07-25,38945,1.56,,,84,0.026,,389,True,True,True
+cec_controversy,2026 Indian electoral controversy,2026-10-10,3353,2.2,,,7,,,34,False,True,True

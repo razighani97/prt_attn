@@ -4,7 +4,8 @@ How public attention to Indian protest movements rises and decays, and whether
 state crackdowns increase it. Built only on public data; individuals are never
 studied, only institutions and aggregates.
 
-**Status:** Week 0, data audit. See [docs/data_audit.md](docs/data_audit.md).
+**Status:** Week 0, data audit. Gate passed: Wikipedia pageviews and GDELT
+agree on timing. See [docs/data_audit.md](docs/data_audit.md).
 
 ## Projects
 

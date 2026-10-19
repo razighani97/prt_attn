@@ -28,6 +28,9 @@ MAX_ATTEMPTS = 8
 # Wikimedia throttles bursts (429, retry-after: 4) even well under its
 # documented limits, so live calls to any one host are spaced out.
 MIN_INTERVAL = 1.0
+# GDELT asks for at most one request every 5 seconds and answers 429 with no
+# retry-after, keeping the penalty for minutes after a burst.
+HOST_INTERVAL = {"api.gdeltproject.org": 6.0}
 _last_call: dict[str, float] = {}
 
 
@@ -43,7 +46,10 @@ def _now() -> str:
 
 def _connect() -> sqlite3.Connection:
     CACHE.mkdir(exist_ok=True)
-    db = sqlite3.connect(CACHE / "http.sqlite")
+    # Autocommit: every logged attempt is written immediately, so throttled
+    # attempts survive a call that ultimately fails, and progress is visible
+    # while a long collection runs.
+    db = sqlite3.connect(CACHE / "http.sqlite", isolation_level=None)
     db.execute(
         """create table if not exists responses (
             key text primary key, url text, params text, status integer,
@@ -62,10 +68,16 @@ def _key(url: str, params: dict | None) -> str:
     return hashlib.sha256(canonical.encode()).hexdigest()
 
 
+def _backoff(attempt: int) -> float:
+    """Wait for a 429 or 5xx with no retry-after: 15s, 30s, 60s ... capped at 5 min."""
+    return min(300.0, 15.0 * 2**attempt)
+
+
 def _pace(url: str) -> None:
-    """Keep live requests to one host at least MIN_INTERVAL seconds apart."""
+    """Keep live requests to one host at least its interval apart."""
     host = httpx.URL(url).host
-    wait = _last_call.get(host, 0) + MIN_INTERVAL - time.monotonic()
+    interval = HOST_INTERVAL.get(host, MIN_INTERVAL)
+    wait = _last_call.get(host, 0) + interval - time.monotonic()
     if wait > 0:
         time.sleep(wait)
     _last_call[host] = time.monotonic()
@@ -100,7 +112,7 @@ def _fetch(
             (_now(), source, url, params_json, resp.status_code, 0),
         )
         retry_after = resp.headers.get("retry-after", "")
-        time.sleep(float(retry_after) if retry_after.isdigit() else 2 ** attempt)
+        time.sleep(float(retry_after) if retry_after.isdigit() else _backoff(attempt))
     raise RuntimeError(f"gave up after {MAX_ATTEMPTS} attempts: {url} {params}")
 
 

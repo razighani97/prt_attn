@@ -23,6 +23,11 @@ CANDIDATES = [
     ("anticec2026", "2026 anti-CEC protests", date(2026, 7, 1), YESTERDAY),
     ("sir", "Special Intensive Revision", date(2025, 3, 1), YESTERDAY),
     ("nirbhaya", "2012 Delhi gang rape and murder", date(2015, 7, 1), date(2016, 6, 30)),
+    # Issue and protest counterparts, so every movement has both kinds of article.
+    ("caa_issue", "Citizenship (Amendment) Act, 2019", date(2019, 9, 1), date(2020, 12, 31)),
+    ("farmers_issue", "2020 Indian agriculture acts", date(2020, 8, 1), date(2022, 2, 28)),
+    ("neet_protest", "2026 Delhi Jantar Mantar protests", date(2026, 3, 1), YESTERDAY),
+    ("cec_controversy", "2026 Indian electoral controversy", date(2026, 7, 1), YESTERDAY),
 ]
 OTHER_LANGS = ("hi", "bn")
 
