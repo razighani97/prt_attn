@@ -1,0 +1,34 @@
+[project]
+name = "protest-attention"
+version = "0.1.0"
+description = "Attention to Indian protest movements: decay curves, repression effects, misinformation lag."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "httpx>=0.27",
+    "pandas>=2.2",
+    "pyarrow>=17",
+    "scipy>=1.14",
+    "statsmodels>=0.14",
+    "matplotlib>=3.9",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+# Sources tested in the audit but not needed for Project A.
+audit = [
+    "google-api-python-client>=2.140",
+    "pytrends>=4.9",
+    "beautifulsoup4>=4.12",
+    "trafilatura>=1.12",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.3"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/protest_attention"]

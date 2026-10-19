@@ -1,0 +1,23 @@
+# secrets
+.env
+*.salt
+
+# raw collections are immutable and never committed
+data/raw/*
+!data/raw/.gitkeep
+data/interim/*
+!data/interim/.gitkeep
+
+# caches and logs
+*.sqlite
+*.sqlite3
+.cache/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+*.log
